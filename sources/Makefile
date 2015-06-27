@@ -26,7 +26,9 @@ all: $(TARGET)
 # dynamically linked binary:
 $(TARGET): $(OBJS)
 	$(CXX) $^ -o $@ `$(SYSROOT)/usr/bin/sdl-config --libs` -lSDL_image -lSDL_mixer -lSDL_sound -lSDL_sound -lSGE
+ifndef DEBUG
 	$(STRIP) $(TARGET)
+endif
 	mv ./$(TARGET) ..
 
 clean:

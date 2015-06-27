@@ -149,9 +149,15 @@ bool state_keyredefinition_cycle(SDL_Surface *screen,int sx,int sy,unsigned char
 			font_print(32,140,"PRESS ANY KEY",screen);
 		} /* if */ 
 
-		found=false;
+		found=SUBSTATE < 7 ? false : true;
 		for(i=0;!found && i<SDLK_LAST;i++) {
 			if (keyboard[i] && !old_keyboard[i]) {
+				if ((SDLKey)i == SDLK_ESCAPE) {
+					keyboard[i] = 0;
+					SUBSTATE++;
+					break;
+				}
+
 				switch(SUBSTATE) {
 				case 0:THRUST_KEY=(SDLKey)i;
 					   SUBSTATE++;

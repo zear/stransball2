@@ -11,7 +11,11 @@ void encode(char *in,char *out)
 
 	fpin=fopen(in,"rb");
 	fpout=fopen(out,"wb");
-	if (fpin==0 || fpout==0) return;
+	if (fpin==0 || fpout==0) {
+		if (fpout) fclose(fpout);
+		if (fpin) fclose(fpin);
+		return;
+	}
 
 	do{
 		val=fgetc(fpin);
@@ -42,7 +46,11 @@ void decode(char *in,char *out)
 
 	fpin=fopen(in,"rb");
 	fpout=fopen(out,"wb");
-	if (fpin==0 || fpout==0) return;
+	if (fpin==0 || fpout==0) {
+		if (fpout) fclose(fpout);
+		if (fpin) fclose(fpin);
+		return;
+	}
 
 	do{
 		val1=fgetc(fpin);

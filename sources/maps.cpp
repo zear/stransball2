@@ -195,7 +195,7 @@ TRANSBALL_MAP::TRANSBALL_MAP(char *file)
 
 TRANSBALL_MAP::~TRANSBALL_MAP()
 {
-	delete map;
+	delete[] map;
 } /* ~TRANSBALL_MAP */ 
 
 

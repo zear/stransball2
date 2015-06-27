@@ -24,7 +24,7 @@ bool load_configuration(void)
 		return false;
 	} /* if */ 
 
-	if (2!=fscanf(fp,"%i %i",&fullscreen,&PIXEL_SIZE)) {
+	if (2!=fscanf(fp,"%i %i",(int)&fullscreen,&PIXEL_SIZE)) {
 		fclose(fp);
 		return false;
 	} /* if */ 

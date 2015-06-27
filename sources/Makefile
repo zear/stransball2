@@ -1,4 +1,13 @@
-OBJS := \
+ifeq ($(PLATFORM), gcw0)
+CXX	:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-g++
+STRIP	:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-strip
+endif
+
+CXX	?= g++
+STRIP	?= strip
+SYSROOT	:= $(shell $(CXX) --print-sysroot)
+TARGET	:= stransball2
+OBJS	:= \
 	auxiliar.o           configuration.o     encoder.o \
 	enemies.o            fonts.o       	 game.o \
 	main.o               maps.o              replays.o \
@@ -9,16 +18,17 @@ OBJS := \
 	state_replay.o       state_replaymanager.o \
 	state_typetext.o     tiles.o             transball.o \
 
-all: stransball2
+all: $(TARGET)
 
 %.o: %.cpp
-	c++ -c -g3 -O3 $< -o $@ `sdl-config --cflags` -I/usr/local/include/SDL
+	$(CXX) -c -g3 -O3 $< -o $@ `$(SYSROOT)/usr/bin/sdl-config --cflags`
 
 # dynamically linked binary:
-stransball2: $(OBJS)
-	c++ $^ -o $@ `sdl-config --libs` -lSDL_image -lSDL_mixer -lSDL_sound -lSDL_sound -lSGE -I/usr/local/include/SDL
-	mv ./stransball2 ..
+$(TARGET): $(OBJS)
+	$(CXX) $^ -o $@ `$(SYSROOT)/usr/bin/sdl-config --libs` -lSDL_image -lSDL_mixer -lSDL_sound -lSDL_sound -lSGE
+	$(STRIP) $(TARGET)
+	mv ./$(TARGET) ..
 
 clean:
-	rm -f stransball2
+	rm -f ../$(TARGET)
 	rm -f *.o

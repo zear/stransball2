@@ -20,12 +20,11 @@
 char *strupr(char *ptr)
 {
     if (ptr!=0) {
-        char *p=new char[strlen(ptr)+1];
-        
+	char *p = ptr;
         while(*p!=0) {
             *p=toupper(*p);
             p++;
-        } /* while */ 
+        } /* while */
     } /* if */
     
     return ptr;

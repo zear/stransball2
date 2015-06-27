@@ -56,6 +56,7 @@ extern int tittle_alpha;
 extern List<char> levelpacks;
 extern int act_levelpack;
 extern char levelpack[256];
+int cursor;
 
 
 bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keyboard)
@@ -121,15 +122,21 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 		r.y=sy-16;
 		r.h=16;
 		surface_fader(screen,0.5F,0.5F,0.5F,-1,&r);
+
+		r.x=SCREEN_X/2-80;
+		r.w=160;
+		r.y=sy-72+cursor*8;
+		r.h=8;
+		SDL_FillRect(screen,&r,SDL_MapRGB(screen->format,255,0,0));
 	}
 
-	font_print(SCREEN_X/2-72,sy-72,"FIRE - START GAME",screen);
-	font_print(SCREEN_X/2-72,sy-64," C   - ENTER CODE",screen);
-	font_print(SCREEN_X/2-72,sy-56," L   - CHANGE LEVEL-PACK",screen);
-	font_print(SCREEN_X/2-72,sy-48," K   - REDEFINE KEYBOARD",screen);
-	font_print(SCREEN_X/2-72,sy-40," I   - INSTRUCTIONS",screen);
-	font_print(SCREEN_X/2-72,sy-32," R   - REPLAYS",screen);
-	font_print(SCREEN_X/2-72,sy-24,"ESC  - QUIT GAME",screen);
+	font_print_centered(SCREEN_X/2,sy-72,"START GAME",screen);
+	font_print_centered(SCREEN_X/2,sy-64,"ENTER CODE",screen);
+	font_print_centered(SCREEN_X/2,sy-56,"CHANGE LEVEL-PACK",screen);
+	font_print_centered(SCREEN_X/2,sy-48,"REDEFINE KEYBOARD",screen);
+	font_print_centered(SCREEN_X/2,sy-40,"INSTRUCTIONS",screen);
+	font_print_centered(SCREEN_X/2,sy-32,"REPLAYS",screen);
+	font_print_centered(SCREEN_X/2,sy-24,"QUIT GAME",screen);
 
 	{
 		char tmp[256];
@@ -170,34 +177,58 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 			game=new TRANSBALL("graphics/","sound/","maps/",fuel,levelname,ship_type);
 		} /* if */ 
 
+		if (keyboard[SDLK_UP]) {
+			keyboard[SDLK_UP] = 0;
+			cursor--;
+			if (cursor < 0) cursor = 6;
+		} /* if */
+		else if (keyboard[SDLK_DOWN]) {
+			keyboard[SDLK_DOWN] = 0;
+			cursor++;
+			if (cursor > 6) cursor = 0;
+		} /* if */
+
 		if (keyboard[FIRE_KEY] && !old_keyboard[FIRE_KEY]) {
-			SUBSTATE++;
-			SUBSTATE2=0;
+			switch (cursor)
+			{
+				case 0:
+					SUBSTATE++;
+					SUBSTATE2=0;
+				break;
+				case 1:
+					SUBSTATE++;
+					SUBSTATE2=3;
+				break;
+				case 2:
+					SUBSTATE++;
+					SUBSTATE2=6;
+				break;
+				case 3:
+					SUBSTATE++;
+					SUBSTATE2=5;
+				break;
+				case 4:
+					SUBSTATE++;
+					SUBSTATE2=2;
+				break;
+				case 5:
+					SUBSTATE++;
+					SUBSTATE2=4;
+				break;
+				case 6:
+					SUBSTATE++;
+					SUBSTATE2=1;
+				break;
+
+				default:
+				break;
+			}
+
 			timer=0;
 		} /* if */ 
 		if (keyboard[SDLK_ESCAPE] && !old_keyboard[SDLK_ESCAPE]) {
 			SUBSTATE++;
 			SUBSTATE2=1;
-		} /* if */ 
-		if (keyboard[SDLK_i] && !old_keyboard[SDLK_i]) {
-			SUBSTATE++;
-			SUBSTATE2=2;
-		} /* if */ 
-		if (keyboard[SDLK_c] && !old_keyboard[SDLK_c]) {
-			SUBSTATE++;
-			SUBSTATE2=3;
-		} /* if */ 
-		if (keyboard[SDLK_r] && !old_keyboard[SDLK_r]) {
-			SUBSTATE++;
-			SUBSTATE2=4;
-		} /* if */ 
-		if (keyboard[SDLK_k] && !old_keyboard[SDLK_k]) {
-			SUBSTATE++;
-			SUBSTATE2=5;
-		} /* if */ 
-		if (keyboard[SDLK_l] && !old_keyboard[SDLK_l]) {
-			SUBSTATE++;
-			SUBSTATE2=6;
 		} /* if */ 
 	} /* if */ 
 	if (SUBSTATE>32) {

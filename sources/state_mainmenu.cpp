@@ -62,7 +62,7 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 {
 	if (SUBSTATE==0) {
 		if (image!=0) SDL_FreeSurface(image);
-		image=IMG_Load("graphics/tittle.pcx");
+		image=IMG_Load("graphics/tittle.png");
 		SDL_SetColorKey(image,SDL_SRCCOLORKEY,SDL_MapRGB(image->format,0,0,0));
 		demotimer=0;
 		demoon=false;

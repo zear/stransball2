@@ -41,9 +41,9 @@ TRANSBALL::TRANSBALL(char *gpath,char *spath,char *mpath,int fuelv,char *mapf,in
 	m_mpath=new char[strlen(mpath)+1];
 	strcpy(m_mpath,mpath);
 
-    tiles_sfc = IMG_Load(g_filename("tiles.pcx"));
+    tiles_sfc = IMG_Load(g_filename("tiles.png"));
     if (tiles_sfc==0) return;
-    mask_sfc = IMG_Load(g_filename("tiles-mask.pcx"));
+    mask_sfc = IMG_Load(g_filename("tiles-mask.png"));
     if (mask_sfc==0) return;
 
 	SDL_SetColorKey(tiles_sfc,SDL_SRCCOLORKEY,SDL_MapRGB(tiles_sfc->format,0,0,0));

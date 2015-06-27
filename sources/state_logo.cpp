@@ -66,7 +66,7 @@ bool state_logo_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keyboard)
 		load_configuration();
 
 		if (image!=0) SDL_FreeSurface(image);
-		image=IMG_Load("graphics/brain.pcx");
+		image=IMG_Load("graphics/brain.png");
 	} /* if */ 
 	SDL_BlitSurface(image,0,screen,0);
 	font_print_centered(sx/2,sy-64,"PRESENTS",screen);

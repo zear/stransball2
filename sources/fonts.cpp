@@ -15,7 +15,7 @@ SDL_Surface *font_sfc;
 
 bool fonts_initialization(void)
 {
-	font_sfc=IMG_Load("graphics/font3.pcx");
+	font_sfc=IMG_Load("graphics/font3.png");
 	if (font_sfc==0) return false;
 
 	/* Transparant color is BLACK: */ 

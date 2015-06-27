@@ -62,7 +62,7 @@ bool state_instructions_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *k
 {
 	if (SUBSTATE==0) {
 		if (image!=0) SDL_FreeSurface(image);
-		image=IMG_Load("graphics/tittle.pcx");
+		image=IMG_Load("graphics/tittle.png");
 	} /* if */ 
 	SDL_BlitSurface(image,0,screen,0);
 	surface_fader(screen,0.5F,0.5F,0.5F,-1,0);

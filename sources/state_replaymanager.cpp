@@ -68,7 +68,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 {
 	if (SUBSTATE==0) {
 		if (image!=0) SDL_FreeSurface(image);
-		image=IMG_Load("graphics/tittle.pcx");
+		image=IMG_Load("graphics/tittle.png");
 		refind_files=true;
 		SUBSTATE2=0;
 	} /* if */ 

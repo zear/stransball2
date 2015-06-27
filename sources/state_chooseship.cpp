@@ -69,8 +69,8 @@ bool state_chooseship_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *key
 	if (SUBSTATE==0) {
 		if (image!=0) SDL_FreeSurface(image);
 		if (image2!=0) SDL_FreeSurface(image);
-		image=IMG_Load("graphics/tittle.pcx");
-		image2=IMG_Load("graphics/tiles.pcx");
+		image=IMG_Load("graphics/tittle.png");
+		image2=IMG_Load("graphics/tiles.png");
 		SDL_SetColorKey(image2,SDL_SRCCOLORKEY,SDL_MapRGB(image2->format,0,0,0));
 	} /* if */ 
 

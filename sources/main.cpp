@@ -20,6 +20,8 @@
 #include "transball.h"
 #include "game.h"
 
+#include "homedir.h"
+
 /*						GLOBAL VARIABLES INITIALIZATION:							*/ 
 
 int SCREEN_X=320;
@@ -129,6 +131,8 @@ int main(int argc, char** argv)
 	int time,act_time;
 	SDL_Event event;
     bool quit = false;
+
+	get_home();
 
 	if (!load_configuration()) save_configuration();
 

@@ -17,6 +17,7 @@ OBJS	:= \
 	state_levelfinished.o state_logo.o       state_mainmenu.o \
 	state_replay.o       state_replaymanager.o \
 	state_typetext.o     tiles.o             transball.o \
+	homedir.o
 
 all: $(TARGET)
 

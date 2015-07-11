@@ -1,5 +1,7 @@
 #include "stdio.h"
 
+#include "homedir.h"
+
 #include "SDL.h"
 
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
@@ -14,8 +16,16 @@ bool load_configuration(void)
 {
 	int a,b,c,d,e,f,g;
 	FILE *fp;
+	char *config_file;
 
-	fp=fopen("transball.cfg","r");
+	config_file = (char *)malloc(strlen(home_dir)+strlen("transball.cfg")+1);
+	if (!config_file) {
+		return false;
+	}
+
+	sprintf(config_file, "%s/transball.cfg", home_dir);
+	fp=fopen(config_file,"r");
+	free(config_file);
 
 	if (fp==0) return false;
 
@@ -45,9 +55,17 @@ bool load_configuration(void)
 void save_configuration(void)
 {
 	FILE *fp;
+	char *config_file;
 
-	fp=fopen("transball.cfg","w");
-	
+	config_file = (char *)malloc(strlen(home_dir)+strlen("transball.cfg")+1);
+	if (!config_file) {
+		return;
+	}
+
+	sprintf(config_file, "%s/transball.cfg", home_dir);
+	fp=fopen(config_file,"w");
+	free(config_file);
+
 	if (fp==0) return;
 
 	fprintf(fp,"%i %i %i %i %i %i %i\n",(int)THRUST_KEY,(int)ANTITHRUST_KEY,(int)LEFT_KEY,(int)RIGHT_KEY,

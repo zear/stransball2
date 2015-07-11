@@ -74,7 +74,7 @@ bool state_gameover_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 		SUBSTATE++;
 	} /* if */ 
 	if (SUBSTATE==32) {
-		if (keyboard[SDLK_r] && !old_keyboard[SDLK_r]) {
+		if (keyboard[SDLK_BACKSPACE] && !old_keyboard[SDLK_BACKSPACE]) {
 			SUBSTATE2=0;
 			SUBSTATE++;
 		} /* if */ 

@@ -88,12 +88,12 @@ bool state_instructions_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *k
 		font_print(16,10,"              SUPER TRANSBALL 2 V1.5",screen);
 
 		font_print(16,30,"  THE CONTROLS OF THE SHIP ARE [REDEFINIBLE]:",screen);
-		font_print(16,50,"    Q   - PROPULSORS",screen);
-		font_print(16,60,"    A   - RETROPROPULSORS [NOT ALL THE SHIPS]",screen);
-		font_print(16,70,"    O   - TURN LEFT",screen);
-		font_print(16,80,"    P   - TURN RIGHT",screen);
-		font_print(16,90,"  SPACE - FIRE",screen);
-		font_print(16,100,"  ENTER - BALL ATRACTOR",screen);
+		font_print(16,50,"  UP    - PROPULSORS",screen);
+		font_print(16,60,"  DOWN  - RETROPROPULSORS [NOT ALL THE SHIPS]",screen);
+		font_print(16,70,"  LEFT  - TURN LEFT",screen);
+		font_print(16,80,"  RIGHT - TURN RIGHT",screen);
+		font_print(16,90,"  A     - FIRE",screen);
+		font_print(16,100,"  B     - BALL ATRACTOR",screen);
 
 		font_print(16,120,"TO ACHIEVE YOUR GOAL, YOU CAN CHOOSE BETWEEN",screen);
 		font_print(16,130,"THREE DIFFERENT SHIPS, EACH ONE WITH ITS OWN",screen);
@@ -147,6 +147,7 @@ bool state_instructions_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *k
 		font_print(16,100,"                BRAIN 2002-2005",screen);
 		font_print(16,110,"             SANTI ONTA~ON VILLAR",screen);
 		font_print(16,120,"         SEE README FILE FOR MORE INFO",screen);
+		font_print(16,140,"     GCW ZERO PORT 2015 ARTUR \"ZEAR\" ROJEK",screen);
 	} /* if */ 
 	if ((SUBSTATE%64)<32) {
 		surface_fader(screen,float((SUBSTATE%64))/32.0F,float((SUBSTATE%64))/32.0F,float((SUBSTATE%64))/32.0F,-1,0);

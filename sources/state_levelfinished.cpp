@@ -161,7 +161,7 @@ bool state_levelfinished_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 		font_print_centered(sx/2,(sy/2)+24,tmp,screen);
 	}
 
-	font_print_centered(sx/2,(sy/2)+40,"SPACE - CONTINUE",screen);
+	font_print_centered(sx/2,(sy/2)+40,"A -     CONTINUE",screen);
 	font_print_centered(sx/2,(sy/2)+48,"R - REPEAT LEVEL",screen);
 
 	if (SUBSTATE<32) {
@@ -169,11 +169,11 @@ bool state_levelfinished_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 		SUBSTATE++;
 	} /* if */ 
 	if (SUBSTATE==32) {
-		if (keyboard[SDLK_SPACE] && !old_keyboard[SDLK_SPACE]) {
+		if (keyboard[SDLK_LCTRL] && !old_keyboard[SDLK_LCTRL]) {
 			SUBSTATE++;
 			SUBSTATE2=0;
 		} /* if */ 
-		if (keyboard[SDLK_r] && !old_keyboard[SDLK_r]) {
+		if (keyboard[SDLK_BACKSPACE] && !old_keyboard[SDLK_BACKSPACE]) {
 			SUBSTATE++;
 			SUBSTATE2=1;
 		} /* if */ 

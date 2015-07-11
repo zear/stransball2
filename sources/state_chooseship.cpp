@@ -139,7 +139,7 @@ bool state_chooseship_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *key
 		if (keyboard[SDLK_RIGHT] && !old_keyboard[SDLK_RIGHT] && ship_type<2) ship_type++;
 		if (keyboard[SDLK_UP] && !old_keyboard[SDLK_UP] && ship_type>0) ship_type--;
 		if (keyboard[SDLK_DOWN] && !old_keyboard[SDLK_DOWN] && ship_type<2) ship_type++;
-		if (keyboard[SDLK_SPACE] && !old_keyboard[SDLK_SPACE]) {
+		if (keyboard[SDLK_LCTRL] && !old_keyboard[SDLK_LCTRL]) {
 			SUBSTATE++;
 			SUBSTATE2=0;
 		} /* if */ 

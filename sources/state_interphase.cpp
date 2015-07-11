@@ -40,6 +40,7 @@ extern int frames_per_sec;
 extern FILE *replayfile;
 extern int replaynum;
 extern int replay_source;
+extern char *replay_dir;
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
 extern SDLKey FIRE_KEY,ATRACTOR_KEY;
 extern SDLKey PAUSE_KEY;
@@ -84,14 +85,14 @@ bool state_interphase_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *key
 		SUBSTATE++;
 		if (SUBSTATE==64) {
 			int i;
-			char tmp[80];
+			char tmp[256];
 			char levelname[256];
 
 			STATE=6;
 			SUBSTATE=0;
 			if (game=0) delete game;
 			game=new TRANSBALL("graphics/","sound/","maps/",initialfuel[level],levelnames[level],ship_type);
-			sprintf(tmp,"replays/replay%.3i.rpl",replaynum++);
+			snprintf(tmp, sizeof(tmp), "%s/replay%.3i.rpl",replay_dir,replaynum++);
 			replayfile=fopen(tmp,"wb+");
 			fputc(32,replayfile);
 			fputc(0,replayfile);

@@ -87,7 +87,8 @@ extern int frames_per_sec;
 FILE *replayfile;
 int replaynum;
 int replay_source=0;
-
+char *replay_dir;
+char *high_dir;
 
 SDLKey THRUST_KEY=SDLK_q,ANTITHRUST_KEY=SDLK_a,LEFT_KEY=SDLK_o,RIGHT_KEY=SDLK_p;
 SDLKey FIRE_KEY=SDLK_SPACE,ATRACTOR_KEY=SDLK_RETURN;

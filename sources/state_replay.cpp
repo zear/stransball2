@@ -40,6 +40,7 @@ extern int frames_per_sec;
 extern FILE *replayfile;
 extern int replaynum;
 extern int replay_source;
+extern char *replay_dir;
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
 extern SDLKey FIRE_KEY,ATRACTOR_KEY;
 extern SDLKey PAUSE_KEY;

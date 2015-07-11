@@ -40,6 +40,8 @@ extern int frames_per_sec;
 extern FILE *replayfile;
 extern int replaynum;
 extern int replay_source;
+extern char *replay_dir;
+extern char *high_dir;
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
 extern SDLKey FIRE_KEY,ATRACTOR_KEY;
 extern SDLKey PAUSE_KEY;
@@ -103,8 +105,8 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 		DIR *dp;
 		struct dirent *ep;
 		  
-		if (replay_source==0) dp = opendir ("replays");
-						 else dp = opendir ("high");
+		if (replay_source==0) dp = opendir (replay_dir);
+						 else dp = opendir (high_dir);
 		if (dp != NULL)
 		 {
 			while (ep = readdir (dp))
@@ -149,7 +151,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 				i<first_file+18) {
 				char *sname[3]={"SH.RNR.","PNTR.2","X-TRM."};
 				int ship,length;
-				char tmp2[80],tmp3[256];
+				char tmp2[256],tmp3[256];
 
 				if (i==act_file) {
 					SDL_Rect r;
@@ -161,8 +163,8 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 				} /* if */ 
 				font_print(4,42+(i-first_file)*10,tmp,screen);
 				
-				if (replay_source==0) sprintf(tmp2,"replays/%s",tmp);
-								 else sprintf(tmp2,"high/%s",tmp);
+				if (replay_source==0) snprintf(tmp2, sizeof(tmp2), "%s/%s",replay_dir, tmp);
+								 else snprintf(tmp2, sizeof(tmp2), "%s/%s",high_dir, tmp);
 				replay_parameters(tmp2,&ship,&length,tmp3);
 				{
 					int min,sec,dec;
@@ -201,15 +203,15 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 			} /* if */ 
 			if (SUBSTATE2==1) {
 				int i;
-				char tmp[80];
+				char tmp[256];
 				char levelname[256];
 				int v1,v2;
 				int fuel;
 				STATE=8;
 				SUBSTATE=0;
 
-				if (replay_source==0) sprintf(tmp,"replays/%s",files[act_file]);
-								 else sprintf(tmp,"high/%s",files[act_file]);
+				if (replay_source==0) snprintf(tmp,sizeof(tmp), "%s/%s", replay_dir, files[act_file]);
+								 else snprintf(tmp, sizeof(tmp), "%s/%s",high_dir, files[act_file]);
 				replayfile=fopen(tmp,"rb");
 				v1=fgetc(replayfile);
 				v2=fgetc(replayfile);	// To maintain compatibility with a previous version
@@ -309,7 +311,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 				DIR *dp;
 				struct dirent *ep;
 				  
-				dp = opendir ("replays");
+				dp = opendir (replay_dir);
 				if (dp != NULL)
 				 {
 					while (ep = readdir (dp))
@@ -338,7 +340,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 					int ship,current_time,previous_high=-1;
 					char levelname[256];
 					
-					sprintf(complete_replayname,"replays/%s",replay);
+					snprintf(complete_replayname, sizeof(complete_replayname), "%s/%s",replay_dir, replay);
 					if (replay_parameters(complete_replayname,&ship,&current_time,levelname)==2) {
 						for(level=0;level<NLEVELS;level++) {
 							if (strcmp(levelname,levelnames[level])==0) {
@@ -387,7 +389,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 								}
 
 								if (previous_high==-1 || previous_high>current_time) {
-									sprintf(filename2,"replays/%s",replay);
+									snprintf(filename2, sizeof(filename2), "%s/%s",replay_dir, replay);
 									replay_copy(filename2,highname);
 								} /* if */ 
 

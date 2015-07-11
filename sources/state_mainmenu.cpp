@@ -38,6 +38,7 @@ extern int frames_per_sec;
 extern FILE *replayfile;
 extern int replaynum;
 extern int replay_source;
+extern char *replay_dir;
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
 extern SDLKey FIRE_KEY,ATRACTOR_KEY;
 extern SDLKey PAUSE_KEY;
@@ -249,8 +250,8 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 				int i;
 
 				for(i=0;i<1000;i++) {
-					char tmp[80];
-					sprintf(tmp,"replays/replay%.3i.rpl",i);
+					char tmp[256];
+					snprintf(tmp,sizeof(tmp),"%s/replay%.3i.rpl",replay_dir, i);
 					remove(tmp);
 				} /* for */ 
 

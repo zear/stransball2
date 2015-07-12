@@ -19,10 +19,16 @@ OBJS	:= \
 	state_typetext.o     tiles.o             transball.o \
 	homedir.o
 
+ifdef DEBUG
+	CXXFLAGS += -g3
+else
+	CXXFLAGS += -O3
+endif
+
 all: $(TARGET)
 
 %.o: %.cpp
-	$(CXX) -c -g3 -O3 $< -o $@ `$(SYSROOT)/usr/bin/sdl-config --cflags`
+	$(CXX) -c $(CXXFLAGS) $< -o $@ `$(SYSROOT)/usr/bin/sdl-config --cflags`
 
 # dynamically linked binary:
 $(TARGET): $(OBJS)

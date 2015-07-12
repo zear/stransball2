@@ -134,9 +134,9 @@ bool gamecycle(SDL_Surface *screen,int sx,int sy)
 		strcpy(tmp,"maps/");
 		strcat(tmp,levelpack);
 
-		decode(tmp,"decoding.tmp");
+		decode(tmp,"/tmp/decoding.tmp");
 
-		fp=fopen("decoding.tmp","r+");
+		fp=fopen("/tmp/decoding.tmp","r+");
 		if (fp!=0) {
 			fscanf(fp,"%i",&NLEVELS);
 
@@ -163,7 +163,7 @@ bool gamecycle(SDL_Surface *screen,int sx,int sy)
 			fclose(fp);
 		} /* if */ 
 
-		remove("decoding.tmp");
+		remove("/tmp/decoding.tmp");
 	} /* if */ 
 
 	if (NLEVELS==-1) return false;

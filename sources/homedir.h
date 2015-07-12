@@ -4,5 +4,6 @@
 extern char *home_dir;
 
 void get_home();
+void free_home();
 
 #endif

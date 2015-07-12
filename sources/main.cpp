@@ -258,6 +258,8 @@ int main(int argc, char** argv)
 
 	finalizeSDL();
 
+	free_home();
+
 	return 0;
 }
 

@@ -37,3 +37,19 @@ void get_home()
 		mkdir(high_dir, 0755);
 	}
 }
+
+void free_home()
+{
+	if (home_dir != NULL)
+	{
+		free(home_dir);
+	}
+	if (replay_dir != NULL)
+	{
+		free(replay_dir);
+	}
+	if (high_dir != NULL)
+	{
+		free(high_dir);
+	}
+}

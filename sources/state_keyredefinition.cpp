@@ -63,6 +63,43 @@ extern char *leveltext[MAXLEVELS];
 extern char *levelcode[MAXLEVELS];
 extern int initialfuel[MAXLEVELS];
 
+const char* get_key_name(SDLKey key)
+{
+	switch (key)
+	{
+		case SDLK_UP:
+			return "D-PAD UP";
+		case SDLK_DOWN:
+			return "D-PAD DOWN";
+		case SDLK_LEFT:
+			return "D-PAD LEFT";
+		case SDLK_RIGHT:
+			return "D-PAD RIGHT";
+		case SDLK_LCTRL:
+			return "BUTTON A";
+		case SDLK_LALT:
+			return "BUTTON B";
+		case SDLK_SPACE:
+			return "BUTTON Y";
+		case SDLK_LSHIFT:
+			return "BUTTON X";
+		case SDLK_TAB:
+			return "BUTTON L";
+		case SDLK_BACKSPACE:
+			return "BUTTON R";
+		case SDLK_ESCAPE:
+			return "BUTTON SELECT";
+		case SDLK_RETURN:
+			return "BUTTON START";
+		case SDLK_HOME:
+			return "POWER SLIDER UP";
+		case SDLK_PAUSE:
+			return "POWER SLIDER DOWN";
+
+		default:
+			return SDL_GetKeyName(key);
+	}
+}
 
 bool state_keyredefinition_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keyboard)
 {
@@ -77,7 +114,8 @@ bool state_keyredefinition_cycle(SDL_Surface *screen,int sx,int sy,unsigned char
 	SDL_BlitSurface(image,0,screen,0);
 	surface_fader(screen,0.5F,0.5F,0.5F,-1,0);
 
-	font_print_centered(sx/2,40,"REDEFINE KEYBOARD:",screen);
+	font_print_centered(sx/2,20,"REDEFINE CONTROLS:",screen);
+	font_print_centered(sx/2,40,"[PRESS SELECT TO SKIP]",screen);
 
 	if (SUBSTATE<32) {
 		surface_fader(screen,float(SUBSTATE)/32.0F,float(SUBSTATE)/32.0F,float(SUBSTATE)/32.0F,-1,0);
@@ -104,49 +142,49 @@ bool state_keyredefinition_cycle(SDL_Surface *screen,int sx,int sy,unsigned char
 
 		SUBSTATE-=32;
 		if (SUBSTATE>=0) {
-			font_print(16,60,"PRESS A KEY FOR THRUST:",screen);
+			font_print(16,60,"PRESS A BUTTON FOR THRUST:",screen);
 		} /* if */ 
 		if (SUBSTATE>=1) {
-			strcpy(keystr,SDL_GetKeyName((SDLKey)THRUST_KEY)); 
+			strcpy(keystr,get_key_name((SDLKey)THRUST_KEY)); 
 			upstr=strupr(keystr);
 			font_print(200,60,upstr,screen);
-			font_print(16,70,"PRESS A KEY FOR ANTITHRUST:",screen);
+			font_print(16,70,"PRESS A BUTTON FOR ANTITHRUST:",screen);
 		} /* if */ 
 		if (SUBSTATE>=2) { 
-                        strcpy(keystr,SDL_GetKeyName((SDLKey)ANTITHRUST_KEY));
+                        strcpy(keystr,get_key_name((SDLKey)ANTITHRUST_KEY));
                         upstr=strupr(keystr);
 			font_print(200,70,upstr,screen);
-			font_print(16,80,"PRESS A KEY FOR LEFT:",screen);
+			font_print(16,80,"PRESS A BUTTON FOR LEFT:",screen);
 		} /* if */ 
 		if (SUBSTATE>=3) {  
-			strcpy(keystr,SDL_GetKeyName((SDLKey)LEFT_KEY));
+			strcpy(keystr,get_key_name((SDLKey)LEFT_KEY));
 			upstr=strupr(keystr);
 			font_print(200,80,upstr,screen);
-			font_print(16,90,"PRESS A KEY FOR RIGHT:",screen);
+			font_print(16,90,"PRESS A BUTTON FOR RIGHT:",screen);
 		} /* if */ 
 		if (SUBSTATE>=4) { 
-			strcpy(keystr,SDL_GetKeyName((SDLKey)RIGHT_KEY));
+			strcpy(keystr,get_key_name((SDLKey)RIGHT_KEY));
 			upstr=strupr(keystr);
 			font_print(200,90,upstr,screen);
-			font_print(16,100,"PRESS A KEY FOR FIRE:",screen);
+			font_print(16,100,"PRESS A BUTTON FOR FIRE:",screen);
 		} /* if */ 
 		if (SUBSTATE>=5) { 
-			strcpy(keystr,SDL_GetKeyName((SDLKey)FIRE_KEY));
+			strcpy(keystr,get_key_name((SDLKey)FIRE_KEY));
 			upstr=strupr(keystr);
 			font_print(200,100,upstr,screen);
-			font_print(16,110,"PRESS A KEY FOR ATRACTOR:",screen);
+			font_print(16,110,"PRESS A BUTTON FOR ATRACTOR:",screen);
 		} /* if */ 
 		if (SUBSTATE>=6) {
-			strcpy(keystr,SDL_GetKeyName((SDLKey)ATRACTOR_KEY));
+			strcpy(keystr,get_key_name((SDLKey)ATRACTOR_KEY));
 			upstr=strupr(keystr);
 			font_print(200,110,upstr,screen);
-			font_print(16,120,"PRESS A KEY FOR PAUSE:",screen);
+			font_print(16,120,"PRESS A BUTTON FOR PAUSE:",screen);
 		} /* if */ 
 		if (SUBSTATE>=7) { 
-			strcpy(keystr,SDL_GetKeyName((SDLKey)PAUSE_KEY));
+			strcpy(keystr,get_key_name((SDLKey)PAUSE_KEY));
 			upstr=strupr(keystr);
 			font_print(200,120,upstr,screen);
-			font_print(32,140,"PRESS ANY KEY",screen);
+			font_print(32,140,"PRESS ANY BUTTON",screen);
 		} /* if */ 
 
 		found=SUBSTATE < 7 ? false : true;

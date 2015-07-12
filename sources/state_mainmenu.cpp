@@ -134,7 +134,7 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 	font_print_centered(SCREEN_X/2,sy-72,"START GAME",screen);
 	font_print_centered(SCREEN_X/2,sy-64,"ENTER CODE",screen);
 	font_print_centered(SCREEN_X/2,sy-56,"CHANGE LEVEL-PACK",screen);
-	font_print_centered(SCREEN_X/2,sy-48,"REDEFINE KEYBOARD",screen);
+	font_print_centered(SCREEN_X/2,sy-48,"REDEFINE CONTROLS",screen);
 	font_print_centered(SCREEN_X/2,sy-40,"INSTRUCTIONS",screen);
 	font_print_centered(SCREEN_X/2,sy-32,"REPLAYS",screen);
 	font_print_centered(SCREEN_X/2,sy-24,"QUIT GAME",screen);
@@ -189,7 +189,7 @@ bool state_mainmenu_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 			if (cursor > 6) cursor = 0;
 		} /* if */
 
-		if (keyboard[FIRE_KEY] && !old_keyboard[FIRE_KEY]) {
+		if ((keyboard[FIRE_KEY] && !old_keyboard[FIRE_KEY]) || (keyboard[SDLK_LCTRL] && !old_keyboard[SDLK_LCTRL])) {
 			switch (cursor)
 			{
 				case 0:

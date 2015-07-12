@@ -90,7 +90,7 @@ bool state_game_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keyboard)
 
 	if (pause) {
 		surface_fader(screen,0.5F,0.5F,0.5F,-1,0);
-		font_print(sx/2,sy/2-16,"PAUSE",screen);
+		font_print_centered(sx/2,sy/2-16,"PAUSE",screen);
 	} else {
 		timer++;
 	} /* if */ 

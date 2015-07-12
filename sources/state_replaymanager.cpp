@@ -354,11 +354,9 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 								previous_high=-1;
 
 								j=0;
-								highname[j++]='h';
-								highname[j++]='i';
-								highname[j++]='g';
-								highname[j++]='h';
-								highname[j++]='/';
+
+								snprintf(highname, sizeof(highname), "%s/", high_dir);
+								j+=strlen(highname);
 								for(i=0;levelpack[i]!='.' && levelpack[i]!=0;i++) highname[j++]=levelpack[i];
 								highname[j++]='-';
 								sprintf(highname+j,"%.3i",level);

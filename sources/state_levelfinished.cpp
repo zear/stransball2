@@ -41,6 +41,7 @@ extern FILE *replayfile;
 extern int replaynum;
 extern int replay_source;
 extern char *replay_dir;
+extern char *high_dir;
 extern SDLKey THRUST_KEY,ANTITHRUST_KEY,LEFT_KEY,RIGHT_KEY;
 extern SDLKey FIRE_KEY,ATRACTOR_KEY;
 extern SDLKey PAUSE_KEY;
@@ -79,11 +80,9 @@ bool state_levelfinished_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 		previous_high=-1;
 
 		j=0;
-		highname[j++]='h';
-		highname[j++]='i';
-		highname[j++]='g';
-		highname[j++]='h';
-		highname[j++]='/';
+
+		snprintf(highname, sizeof(highname), "%s/", high_dir);
+		j+=strlen(highname);
 		for(i=0;levelpack[i]!='.' && levelpack[i]!=0;i++) highname[j++]=levelpack[i];
 		highname[j++]='-';
 		sprintf(highname+j,"%.3i",level);

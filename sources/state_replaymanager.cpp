@@ -137,8 +137,7 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 
 	if (replay_source==0) font_print_centered(sx/2,20,"REPLAY FILES [L - CHANGE SOURCE]:",screen);
 					 else font_print_centered(sx/2,20,"HIGH SCORE FILES [L - CHANGE SOURCE]:",screen);
-	if (replay_source==0) font_print_centered(sx/2,30,"PRESS FIRE TO VIEW OR R TO RENAME",screen);
-					 else font_print_centered(sx/2,30,"PRESS FIRE TO VIEW OR R TO REBUILD",screen);
+	if (replay_source!=0) font_print_centered(sx/2,30,"PRESS FIRE TO VIEW OR R TO REBUILD",screen);
 	
 	{
 		char *tmp;
@@ -272,14 +271,6 @@ bool state_replaymanager_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *
 			refind_files=true;
 		} /* if */ 
 		
-		if (keyboard[SDLK_BACKSPACE] && !old_keyboard[SDLK_BACKSPACE] && replay_source==0) {
-			STATE=3;
-			SUBSTATE=0;
-			SUBSTATE2=1;
-			strcpy(edit_text,files[act_file]);
-			edit_position=strlen(edit_text);
-		} /* if */ 
-
 		if (keyboard[SDLK_BACKSPACE] && !old_keyboard[SDLK_BACKSPACE] && replay_source==1) {
 			{
 				List<char> replays;

@@ -63,6 +63,7 @@ extern char *levelnames[MAXLEVELS];
 extern char *leveltext[MAXLEVELS];
 extern char *levelcode[MAXLEVELS];
 extern int initialfuel[MAXLEVELS];
+int cpos = 97;
 
 
 bool state_typetext_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keyboard)
@@ -94,32 +95,47 @@ bool state_typetext_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 	rectangle(screen,160-((maxlen+1)*3+2),52,(maxlen+1)*6+4,10,SDL_MapRGB(screen->format,255,255,255));
 
 	font_print(160-(maxlen+1)*3,54,edit_text,screen);
-	r.x=160-(maxlen+1)*3+(strlen(edit_text))*6;
+	r.x=160-(maxlen+1)*3+(edit_position)*6;
 	r.y=60;
 	r.w=7;
 	r.h=1;
 
 	if (((SUBSTATE>>4)&0x01)!=0) SDL_FillRect(screen,&r,SDL_MapRGB(screen->format,255,255,255));
 
-	for(i=0;i<SDLK_LAST;i++) {
-		if (keyboard[i] && !old_keyboard[i]) {
-			if ((i>=SDLK_a && i<=SDLK_z) ||
-				(i==SDLK_PERIOD && SUBSTATE2==1) ||
-				(i>=SDLK_0 && i<=SDLK_9)) {
-				if (edit_position>=maxlen) edit_position=maxlen-1;
-				if (i>=SDLK_a && i<=SDLK_z) edit_text[edit_position++]=(i-SDLK_a)+'a';
-				if (i>=SDLK_0 && i<=SDLK_9) edit_text[edit_position++]=(i-SDLK_0)+'0';
-				if (i==SDLK_PERIOD) edit_text[edit_position++]='.';
-				edit_text[edit_position]=0;
-			} /* if */ 
-		} /* if */ 
-	} /* for */ 
+	if (keyboard[SDLK_DOWN] && !old_keyboard[SDLK_DOWN]) {
+		cpos--;
 
-	if (keyboard[SDLK_BACKSPACE] && !old_keyboard[SDLK_BACKSPACE] && edit_position>0) {
-		edit_text[--edit_position]=0;
-	} /* if */ 
+		if (cpos == 96) cpos = 57;
+		if (cpos == 47) cpos = 122;
+	} /* if */
 
-	if (keyboard[SDLK_RETURN] && !old_keyboard[SDLK_RETURN]) {
+	if (keyboard[SDLK_UP] && !old_keyboard[SDLK_UP]) {
+		cpos++;
+
+		if (cpos == 58) cpos = 97;
+		if (cpos == 123) cpos = 48;
+	} /* if */
+
+	if (edit_position>=maxlen) edit_position=maxlen-1;
+	edit_text[edit_position] = (char)cpos;
+
+	if (keyboard[SDLK_LEFT] && !old_keyboard[SDLK_LEFT]) {
+		edit_position--;
+		if (edit_position<0) edit_position=0;
+		cpos = edit_text[edit_position];
+	}
+
+	if (keyboard[SDLK_RIGHT] && !old_keyboard[SDLK_RIGHT]) {
+		edit_position++;
+		if (edit_position>=maxlen) edit_position=maxlen-1;
+		cpos = edit_text[edit_position];
+		if (cpos == 0) {
+			cpos = edit_text[edit_position-1];
+			edit_text[edit_position+1] = 0;
+		}
+	}
+
+	if ((keyboard[SDLK_RETURN] && !old_keyboard[SDLK_RETURN]) || (keyboard[SDLK_LCTRL] && !old_keyboard[SDLK_LCTRL])) {
 		SDL_FreeSurface(image);
 		image=0;
 
@@ -174,6 +190,8 @@ bool state_typetext_cycle(SDL_Surface *screen,int sx,int sy,unsigned char *keybo
 			snprintf(tmp2,sizeof(tmp),"%s/%s",replay_dir,edit_text);
 			rename(tmp,tmp2);
 		} /* if */  
+
+		cpos = 97; // Reset cursor position to 'a'.
 	} /* if */ 
 
 	return true;
